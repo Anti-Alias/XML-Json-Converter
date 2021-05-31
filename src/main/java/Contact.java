@@ -25,7 +25,7 @@ public class Contact {
     private String email;
 
     @JacksonXmlProperty(localName = "Region")
-    private Optional<String> region;
+    private String region;
 
     @JacksonXmlProperty(localName = "PostalCode")
     private String postalCode;
@@ -92,19 +92,19 @@ public class Contact {
     }
 
     public Optional<String> getRegion() {
-        return region;
+        return Optional.ofNullable(region);
     }
 
     public void setRegion(String region) {
-        this.region = Optional.of(region);
+        this.region = region;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public String getPostalCode() {
-        return postalCode;
+    public Optional<String> getPostalCode() {
+        return Optional.ofNullable(postalCode);
     }
 
     public void setPostalCode(String postalCode) {
@@ -127,8 +127,8 @@ public class Contact {
         this.phone = phone;
     }
 
-    public String getFax() {
-        return fax;
+    public Optional<String> getFax() {
+        return Optional.ofNullable(fax);
     }
 
     public void setFax(String fax) {
@@ -145,6 +145,7 @@ public class Contact {
                 ", address='" + address + '\'' +
                 ", City='" + City + '\'' +
                 ", email='" + email + '\'' +
+                ", region='" + region + '\'' +
                 ", postalCode='" + postalCode + '\'' +
                 ", country='" + country + '\'' +
                 ", phone='" + phone + '\'' +
