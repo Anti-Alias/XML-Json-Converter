@@ -1,6 +1,7 @@
 import java.io.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 
 class App {
@@ -16,7 +17,7 @@ class App {
     private static void start(String[] args) throws FileNotFoundException {
 
         // Checks/massages arguments
-        if(args.length != 2)
+        if(args.length != 3)
             throw new IllegalArgumentException("Invalid number of CLI arguments. Expected 3 <source-file-name> <dest-file-name> <dest-format>");
         File sourceFile = new File(args[0]);
         File destFile = new File(args[1]);
@@ -29,16 +30,29 @@ class App {
             sourceFormat = "json";
         else if(destinationFormat.equals("json"))
             sourceFormat = "xml";
+        else
+            throw new IllegalArgumentException("Invalid destination format '" + destinationFormat + "'");
 
         // Opens files
         InputStream input = new BufferedInputStream(new FileInputStream(sourceFile));
         OutputStream output = new BufferedOutputStream(new FileOutputStream(destFile));
 
+        // Creates object mappers
+        ObjectMapper inputOM = objectMapperFor(sourceFormat);
+        ObjectMapper outputOM = objectMapperFor(destinationFormat);
+
+        // Reads from input and converts it to a POJO
         
     }
 
     private static ObjectMapper objectMapperFor(String format) {
-        throw new RuntimeException("TODO");
+        if(format.equals("xml")) {
+            return new XmlMapper();
+        }
+        else if(format.equals("json")) {
+            return new ObjectMapper();
+        }
+        else throw new IllegalArgumentException("Invalid format '" + format + "'");
     }
 
     private static void validateArgs(File sourceFile, File destFile, String destinationFormat) {
