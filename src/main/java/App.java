@@ -1,4 +1,5 @@
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
@@ -14,7 +15,7 @@ class App {
         }
     }
 
-    private static void start(String[] args) throws FileNotFoundException {
+    private static void start(String[] args) throws IOException {
 
         // Checks/massages arguments
         if(args.length != 3)
@@ -33,13 +34,18 @@ class App {
         else
             throw new IllegalArgumentException("Invalid destination format '" + destinationFormat + "'");
 
-        // Opens files
-        InputStream input = new BufferedInputStream(new FileInputStream(sourceFile));
-        OutputStream output = new BufferedOutputStream(new FileOutputStream(destFile));
+        // Opens files and converts
+        try(Reader input = new InputStreamReader(new FileInputStream(sourceFile), StandardCharsets.UTF_8)) {
+            try(Writer output = new OutputStreamWriter(new FileOutputStream(destFile), StandardCharsets.UTF_8)) {
+                convert(input, output, sourceFormat, destinationFormat);
+            }
+        }
+    }
+
+    private static void convert(Reader input, Writer output, String sourceFormat, String destinationFormat) {
 
         // Creates object mappers
-        ObjectMapper inputOM = objectMapperFor(sourceFormat);
-        ObjectMapper outputOM = objectMapperFor(destinationFormat);
+        ObjectMapper mapper = objectMapperFor(sourceFormat);
 
         // Reads from input and converts it to a POJO
         
