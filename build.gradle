@@ -2,6 +2,19 @@ plugins {
     id 'application'
 }
 
+ext {
+    jacksonVersion = '2.12.3'
+}
+
 application {
     mainClassName = 'App'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+    implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion"
 }
