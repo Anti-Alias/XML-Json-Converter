@@ -42,13 +42,15 @@ class App {
         }
     }
 
-    private static void convert(Reader input, Writer output, String sourceFormat, String destinationFormat) {
+    private static void convert(Reader input, Writer output, String sourceFormat, String destinationFormat) throws IOException {
 
         // Creates object mappers
-        ObjectMapper mapper = objectMapperFor(sourceFormat);
+        ObjectMapper inputMapper = objectMapperFor(sourceFormat);
+        ObjectMapper outputMapper = objectMapperFor(destinationFormat);
 
         // Reads from input and converts it to a POJO
-        
+        AddressBook book = inputMapper.readValue(input, AddressBook.class);
+        System.out.println(book);
     }
 
     private static ObjectMapper objectMapperFor(String format) {
@@ -64,7 +66,7 @@ class App {
     private static void validateArgs(File sourceFile, File destFile, String destinationFormat) {
         if(!sourceFile.exists())
             throw new IllegalArgumentException("Could not find file '" + sourceFile.getName() + "'");
-        if(!destinationFormat.equals("csv") && !destinationFormat.equals("xml"))
+        if(!destinationFormat.equals("json") && !destinationFormat.equals("xml"))
             throw new IllegalArgumentException("Invalid destination format '" + destinationFormat + "'. Expected xml or json.");
     }
 }

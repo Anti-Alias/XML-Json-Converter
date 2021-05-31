@@ -1,7 +1,9 @@
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
+import java.util.Optional;
+
 public class Contact {
-    @JacksonXmlProperty(localName = "CustomerId")
+    @JacksonXmlProperty(localName = "CustomerID")
     private String customerId;
 
     @JacksonXmlProperty(localName = "CompanyName")
@@ -21,6 +23,9 @@ public class Contact {
 
     @JacksonXmlProperty(localName = "Email")
     private String email;
+
+    @JacksonXmlProperty(localName = "Region")
+    private Optional<String> region;
 
     @JacksonXmlProperty(localName = "PostalCode")
     private String postalCode;
@@ -86,6 +91,14 @@ public class Contact {
         return email;
     }
 
+    public Optional<String> getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = Optional.of(region);
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -120,5 +133,22 @@ public class Contact {
 
     public void setFax(String fax) {
         this.fax = fax;
+    }
+
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "customerId='" + customerId + '\'' +
+                ", companyName='" + companyName + '\'' +
+                ", contactName='" + contactName + '\'' +
+                ", contactTitle='" + contactTitle + '\'' +
+                ", address='" + address + '\'' +
+                ", City='" + City + '\'' +
+                ", email='" + email + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", country='" + country + '\'' +
+                ", phone='" + phone + '\'' +
+                ", fax='" + fax + '\'' +
+                '}';
     }
 }
