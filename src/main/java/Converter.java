@@ -7,8 +7,17 @@ import java.nio.charset.StandardCharsets;
 public class Converter {
 
     public static void convert(File sourceFile, File destFile, String destFormat) throws IOException {
+        // Opens files and converts
+        try(Reader input = new InputStreamReader(new FileInputStream(sourceFile), StandardCharsets.UTF_8)) {
+            try(Writer output = new OutputStreamWriter(new FileOutputStream(destFile), StandardCharsets.UTF_8)) {
+                convert(input, output, destFormat);
+            }
+        }
+    }
 
-        // Determines source / dest formats
+    public static void convert(Reader input, Writer output, String destFormat) throws IOException {
+
+        // Determines source format
         String sourceFormat;
         if(destFormat.equals("xml"))
             sourceFormat = "json";
@@ -17,19 +26,9 @@ public class Converter {
         else
             throw new IllegalArgumentException("Invalid destination format '" + destFormat + "'");
 
-        // Opens files and converts
-        try(Reader input = new InputStreamReader(new FileInputStream(sourceFile), StandardCharsets.UTF_8)) {
-            try(Writer output = new OutputStreamWriter(new FileOutputStream(destFile), StandardCharsets.UTF_8)) {
-                convert(input, output, sourceFormat, destFormat);
-            }
-        }
-    }
-
-    public static void convert(Reader input, Writer output, String sourceFormat, String destinationFormat) throws IOException {
-
         // Creates object mappers
         ObjectMapper inputMapper = objectMapperFor(sourceFormat);
-        ObjectMapper outputMapper = objectMapperFor(destinationFormat);
+        ObjectMapper outputMapper = objectMapperFor(destFormat);
 
         // Reads from input and converts it to a POJO
         AddressBook book = inputMapper.readValue(input, AddressBook.class);
