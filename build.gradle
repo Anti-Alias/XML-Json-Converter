@@ -4,6 +4,7 @@ plugins {
 
 ext {
     jacksonVersion = '2.12.3'
+    junitVersion = '5.7.0'
 }
 
 application {
@@ -17,4 +18,9 @@ repositories {
 dependencies {
     implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
     implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter:$junitVersion"
+}
+
+test {
+    useJUnitPlatform()
 }
