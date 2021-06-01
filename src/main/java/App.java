@@ -50,7 +50,7 @@ class App {
 
         // Reads from input and converts it to a POJO
         AddressBook book = inputMapper.readValue(input, AddressBook.class);
-        System.out.println(book);
+        outputMapper.writerWithDefaultPrettyPrinter().writeValue(output, book);
     }
 
     private static ObjectMapper objectMapperFor(String format) {

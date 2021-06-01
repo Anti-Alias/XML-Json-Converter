@@ -1,6 +1,5 @@
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-
-import java.util.Optional;
 
 public class Contact {
     @JacksonXmlProperty(localName = "CustomerID")
@@ -25,9 +24,11 @@ public class Contact {
     private String email;
 
     @JacksonXmlProperty(localName = "Region")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String region;
 
     @JacksonXmlProperty(localName = "PostalCode")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String postalCode;
 
     @JacksonXmlProperty(localName = "Country")
@@ -37,6 +38,7 @@ public class Contact {
     private String phone;
 
     @JacksonXmlProperty(localName = "Fax")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String fax;
 
     public String getCustomerId() {
@@ -91,8 +93,8 @@ public class Contact {
         return email;
     }
 
-    public Optional<String> getRegion() {
-        return Optional.ofNullable(region);
+    public String getRegion() {
+        return region;
     }
 
     public void setRegion(String region) {
@@ -103,8 +105,8 @@ public class Contact {
         this.email = email;
     }
 
-    public Optional<String> getPostalCode() {
-        return Optional.ofNullable(postalCode);
+    public String getPostalCode() {
+        return postalCode;
     }
 
     public void setPostalCode(String postalCode) {
@@ -127,8 +129,8 @@ public class Contact {
         this.phone = phone;
     }
 
-    public Optional<String> getFax() {
-        return Optional.ofNullable(fax);
+    public String getFax() {
+        return fax;
     }
 
     public void setFax(String fax) {
