@@ -30,8 +30,10 @@ public class Converter {
         ObjectMapper inputMapper = objectMapperFor(sourceFormat);
         ObjectMapper outputMapper = objectMapperFor(destFormat);
 
-        // Reads from input and converts it to a POJO
+        // Reads pojo from input mapper
         AddressBook book = inputMapper.readValue(input, AddressBook.class);
+
+        // Writes pojo with output mapper
         outputMapper.writerWithDefaultPrettyPrinter().writeValue(output, book);
     }
 
