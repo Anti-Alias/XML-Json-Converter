@@ -18,7 +18,7 @@ public class Contact {
     private String address;
 
     @JacksonXmlProperty(localName = "City")
-    private String City;
+    private String city;
 
     @JacksonXmlProperty(localName = "Email")
     private String email;
@@ -82,11 +82,11 @@ public class Contact {
     }
 
     public String getCity() {
-        return City;
+        return city;
     }
 
     public void setCity(String city) {
-        City = city;
+        this.city = city;
     }
 
     public String getEmail() {
@@ -145,7 +145,7 @@ public class Contact {
                 ", contactName='" + contactName + '\'' +
                 ", contactTitle='" + contactTitle + '\'' +
                 ", address='" + address + '\'' +
-                ", City='" + City + '\'' +
+                ", City='" + city + '\'' +
                 ", email='" + email + '\'' +
                 ", region='" + region + '\'' +
                 ", postalCode='" + postalCode + '\'' +
